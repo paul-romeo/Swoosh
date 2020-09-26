@@ -2,6 +2,7 @@ package com.example.swoosh.Controller
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
 import com.example.swoosh.Model.Player
@@ -23,6 +24,17 @@ class SkillActivity : BaseActivity() {
 //        league = intent.getStringExtra(EXTRA_LEAGUE).toString()
         player = intent.getParcelableExtra<Player>(EXTRA_PLAYER)!!
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(EXTRA_PLAYER, player)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        if (savedInstanceState != null) player = savedInstanceState.getParcelable<Player>(EXTRA_PLAYER)!!
     }
 
     fun onSkillFinishClicked(view: View) {

@@ -2,6 +2,7 @@ package com.example.swoosh.Controller
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
 import com.example.swoosh.Model.Player
@@ -38,6 +39,17 @@ class LeagueActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(EXTRA_PLAYER, player)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        if (savedInstanceState != null) player = savedInstanceState.getParcelable<Player>(EXTRA_PLAYER)!!
     }
 
     fun leagueNextClicked(view: View) {
